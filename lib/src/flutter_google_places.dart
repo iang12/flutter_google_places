@@ -267,9 +267,10 @@ class _PlacesAutocompleteResult extends State<PlacesAutocompleteResult> {
 class AppBarPlacesAutoCompleteTextField extends StatefulWidget {
   final InputDecoration? textDecoration;
   final TextStyle? textStyle;
+  final ValueChanged<String>? onChanged;
 
   const AppBarPlacesAutoCompleteTextField(
-      {Key? key, this.textDecoration, this.textStyle})
+      {Key? key, this.textDecoration, this.textStyle, this.onChanged})
       : super(key: key);
 
   @override
@@ -287,6 +288,9 @@ class _AppBarPlacesAutoCompleteTextFieldState
         alignment: Alignment.topLeft,
         margin: const EdgeInsets.only(top: 4.0),
         child: TextField(
+          onChanged: (v) {
+            widget.onChanged?.call(v);
+          },
           controller: state._queryTextController,
           autofocus: true,
           style: widget.textStyle ?? _defaultStyle(),
